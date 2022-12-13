@@ -15,6 +15,8 @@
 
     ** This module is a DEMO; it lacks proper error checking and does not exhibit "clean code" characteristics. **
 """
+import sqlite3
+from sqlite3 import Error
 import requests
 from bs4 import BeautifulSoup
 
@@ -152,9 +154,66 @@ def get_multiple_listings_by_keyword(keywords: str):
         print()
         data_out_file.write('\n\n')
 
+def create_db():
+    db_connection = None
+
+    try:
+        db_name = 'products.db'
+
+        db_connection = sqlite3.connect(db_name)
+
+        db_cursor = db_connection.cursor()
+
+        db_cursor.execute('''CREATE TABLE IF NOT EXISTS 'Over Ear Headphones' (
+                                        product_name TEXT,
+                                         rating REAL,
+                                         num_ratings INTEGER,
+                                         price REAL,
+                                         product_url TEXT
+                                     ); ''')
+        db_cursor.execute('''CREATE TABLE IF NOT EXISTS 'USB Microphones' (
+                                        product_name TEXT,
+                                         rating REAL,
+                                         num_ratings INTEGER,
+                                         price REAL,
+                                         product_url TEXT
+                                     ); ''')
+        db_cursor.execute('''CREATE TABLE IF NOT EXISTS '1080p Webcams' (
+                                                 product_name TEXT,
+                                                 rating REAL,
+                                                 num_ratings INTEGER,
+                                                 price REAL,
+                                                 product_url TEXT
+                                             ); ''')
+        db_cursor.execute('''CREATE TABLE IF NOT EXISTS 'Capture Cards' (
+                                                 product_name TEXT,
+                                                 rating REAL,
+                                                 num_ratings INTEGER,
+                                                 price REAL,
+                                                 product_url TEXT
+                                             ); ''')
+        db_cursor.execute('''CREATE TABLE IF NOT EXISTS '8-channel Audio Mixers' (
+                                                 product_name TEXT,
+                                                 rating REAL,
+                                                 num_ratings INTEGER,
+                                                 price REAL,
+                                                 product_url TEXT
+                                             ); ''')
+        db_cursor.execute('''CREATE TABLE IF NOT EXISTS 'Gaming Laptops' (
+                                                 product_name TEXT,
+                                                 rating REAL,
+                                                 num_ratings INTEGER,
+                                                 price REAL,
+                                                 product_url TEXT
+                                             ); ''')
+
+    except Error as e:
+        print(e)
 
 if __name__ == '__main__':
     # prompt to have the user supply product search keywords
     user_input_search_keywords = input('\n>> Enter product keywords to search in Amazon\'s e-marketplace:\n>> ')
     # pass the user-supplied keywords to 'get_multiple_listings_by_keyword()'
     get_multiple_listings_by_keyword(user_input_search_keywords)
+    create_db()
+
