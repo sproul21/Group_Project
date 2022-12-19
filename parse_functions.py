@@ -3,6 +3,7 @@ import sqlite3
 
 
 def isfloat(num):
+    """Is float function"""
     try:
         float(num)
         return True
@@ -11,6 +12,7 @@ def isfloat(num):
 
 
 def find_category():
+    """This function finds our category for the desired product based on the choice we want."""
     print("choose a product category:")
     print("     1. Over Ear Headphones")
     print("     2. USB Microphones")
@@ -44,6 +46,7 @@ def find_category():
 
 
 def find_review():
+    """Function finds a review"""
     choice = input("Enter a target star review (ex. '4.5'):")
     if isfloat(choice) and 0.0 <= float(choice) <= 5.0:
         return choice
@@ -53,6 +56,7 @@ def find_review():
 
 
 def find_equality_operator():
+    """This function allows us to find an equality operator"""
     choice = input("Choose an equality operator (>, <, >=, <=, =):")
     return choice
 
@@ -68,6 +72,7 @@ def find_price():
 
 
 def search_params():
+    """This function searches the desired parameters"""
     user_search = []
 
     category = find_category()

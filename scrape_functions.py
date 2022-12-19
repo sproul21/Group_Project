@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 
 def extract_product_name(product_html_block):
+    """This function extracts the product name from the html file and checks if there is a product name"""
     product_name = None
     try:
         product_name = product_html_block.h2.text
@@ -14,6 +15,7 @@ def extract_product_name(product_html_block):
 
 
 def extract_product_ratings(product_html_block):
+    """This function extracts the product rating from the desired product"""
     product_ratings = None
     try:
         #product_ratings = product_html_block.find('i', {'class': 'a-icon'}).text
@@ -25,6 +27,7 @@ def extract_product_ratings(product_html_block):
 
 
 def extract_product_num_ratings(product_html_block):
+    """This function extracts the product rating and numbers"""
     product_num_ratings = None
     try:
         product_num_ratings = product_html_block.find('span', {'class': 'a-size-base s-underline-text'}).text
@@ -35,6 +38,7 @@ def extract_product_num_ratings(product_html_block):
 
 
 def extract_product_price(product_html_block):
+    """This function extracts the product price"""
     product_price = None
     try:
         price_integer = product_html_block.find('span', {'class': 'a-price-whole'}).text
@@ -47,6 +51,7 @@ def extract_product_price(product_html_block):
 
 
 def extract_product_url(product_html_block):
+    """This function extracts our product URL"""
     product_url = None
     try:
         product_url_segment = product_html_block.h2.a['href']
@@ -57,6 +62,8 @@ def extract_product_url(product_html_block):
         return product_url
 
 def fill_database():
+    """This function fills our database, first it searches the terms that we desire
+    then creates the table if it doesn't already exist and gives us our desired result"""
     search_terms = ['over ear headphones', 'USB microphones', 'Webcams 1080p', 'Capture Cards', 'Eight Channel Audio '
                                                                                                 'Mixers',
                     'Gaming Laptops']
