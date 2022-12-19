@@ -1,3 +1,6 @@
+import sqlite3
+
+
 def isfloat(num):
     try:
         float(num)
@@ -17,22 +20,22 @@ def find_category():
     choice = input("Input a number")
     choice = choice.strip()
     if choice == "1":
-        category = "Over Ear Headphones"
+        category = "overearheadphones"
         return category
     elif choice == "2":
-        category = "USB Microphones"
+        category = "USBmicrophones"
         return category
     elif choice == "3":
-        category = "1080p Webcams"
+        category = "Webcams1080p"
         return category
     elif choice == "4":
-        category = "Capture Cards"
+        category = "CaptureCards"
         return category
     elif choice == "5":
-        category = "8-channel Audio Mixers"
+        category = "EightChannelAudioMixers"
         return category
     elif choice == "6":
-        category = "Gaming Laptops"
+        category = "GamingLaptops"
         return category
     else:
         print("Not a valid input")
@@ -90,3 +93,47 @@ def search_params():
 
     return user_search
     # print(user_search)
+
+
+def print_params(user_search):
+    print(f'SELECT * FROM {user_search[0]} WHERE rating {user_search[2]} {user_search[1]} AND num_ratings {user_search[4]} {user_search[3]} AND price {user_search[6]} {user_search[5]}')
+    parse_string = f'SELECT * FROM {user_search[0]} WHERE rating {user_search[2]} {user_search[1]} AND num_ratings {user_search[4]} {user_search[3]} AND price {user_search[6]} {user_search[5]}'
+    return parse_string
+def parse(parse_string):
+    conn = sqlite3.connect('product_data.db')
+    cursor = conn.cursor()
+
+    cursor.execute(f'''{parse_string}''')
+
+    q1_result = cursor.fetchall()
+    print_parse(q1_result)
+
+
+def print_parse(result):
+    with open('output.txt', 'w') as f:
+        for item in result:
+            f.write(str(item))
+            f.write('\n')
+
+    for item in result:
+        print(item)
+        print("\n")
+
+def loop():
+
+
+    while True:
+        user_search = search_params()
+        parse_string = print_params(user_search)
+        parse(parse_string)
+
+        choice = input("Would you like to execute another query (yes/no):")
+        if choice == "yes":
+            continue
+        elif choice == "no":
+            print("Exiting program...")
+            break
+        else:
+            print("Please enter a valid response (yes/no)")
+
+    return False
