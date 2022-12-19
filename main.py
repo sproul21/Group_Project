@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 import scrape_functions
+import parse_functions
 
 
 def main(search_term: str):
@@ -49,6 +50,18 @@ def main(search_term: str):
 
         url_results_page_param = url_results_page_param + 1
 
+    while True:
+        user_search = parse_functions.search_params()
+        print(user_search)
+
+        choice = input("Would you like to execute another query (yes/no):")
+        if choice == "yes":
+            continue
+        elif choice == "no":
+            print("Exiting program...")
+            break
+        else:
+            print("Please enter a valid response (yes/no)")
 
 if __name__ == '__main__':
     search_terms = ['over ear headphones', 'USB microphones', 'Webcams 1080p', 'Capture Cards', 'Eight Channel Audio '
