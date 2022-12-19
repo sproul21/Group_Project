@@ -1,3 +1,4 @@
+import random
 import sqlite3
 
 
@@ -106,11 +107,14 @@ def parse(parse_string):
     cursor.execute(f'''{parse_string}''')
 
     q1_result = cursor.fetchall()
-    print_parse(q1_result)
+    print_parse(q1_result, parse_string)
 
 
-def print_parse(result):
-    with open('output.txt', 'w') as f:
+def print_parse(result, parse_string):
+    random_num = random.randint(1,25)
+    with open(f'output_{random_num}.txt', 'w') as f:
+        f.write(str(parse_string))
+        print("\n")
         for item in result:
             f.write(str(item))
             f.write('\n')
