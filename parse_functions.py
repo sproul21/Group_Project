@@ -105,6 +105,8 @@ def print_params(user_search):
     print(f'SELECT * FROM {user_search[0]} WHERE rating {user_search[2]} {user_search[1]} AND num_ratings {user_search[4]} {user_search[3]} AND price {user_search[6]} {user_search[5]}')
     parse_string = f'SELECT * FROM {user_search[0]} WHERE rating {user_search[2]} {user_search[1]} AND num_ratings {user_search[4]} {user_search[3]} AND price {user_search[6]} {user_search[5]}'
     return parse_string
+
+
 def parse(parse_string):
     conn = sqlite3.connect('product_data.db')
     cursor = conn.cursor()
