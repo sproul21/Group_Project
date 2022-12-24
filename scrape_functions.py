@@ -3,6 +3,15 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def isfloat(num):
+    """Is float function"""
+    try:
+        float(num)
+        return True
+    except ValueError:
+        return False
+
+
 def extract_product_name(product_html_block):
     """This function extracts the product name from the html file and checks if there is a product name"""
     product_name = None
@@ -20,9 +29,12 @@ def extract_product_ratings(product_html_block):
     try:
         #product_ratings = product_html_block.find('i', {'class': 'a-icon'}).text
         product_ratings = product_html_block.find('span', {'aria-label': True}).text
+        product_ratings = product_ratings[0:3]
+        if isfloat(product_ratings):
+            return product_ratings
     except AttributeError:
         print('no rating')
-    finally:
+        product_ratings = 0.0
         return product_ratings
 
 
@@ -31,9 +43,11 @@ def extract_product_num_ratings(product_html_block):
     product_num_ratings = None
     try:
         product_num_ratings = product_html_block.find('span', {'class': 'a-size-base s-underline-text'}).text
+        product_num_ratings = product_num_ratings.replace("(", "").replace(")", "")
+        return product_num_ratings
     except AttributeError:
         print('no num ratings')
-    finally:
+        product_num_ratings = 0
         return product_num_ratings
 
 
